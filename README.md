@@ -82,5 +82,7 @@ Vamos usar um pequeno conjunto de dados de exemplo, com 100 mil linhas de dados 
 
 Depois de carregado, o arquivo parquet estará disponível por meio de dois URIs equivalentes:
 
-* https://contosolake.dfs.core.windows.net/users/NYCTripSmall.parquet
-* abfss://users@contosolake.dfs.core.windows.net/NYCTripSmall.parquet
+* https://contosolake.dfs.core.windows.net/users/NYCTripSmall.parquet*
+* abfss://users@contosolake.dfs.core.windows.net/NYCTripSmall.parquet*
+
+Nos exemplos a seguir neste tutorial, certifique-se de substituir contosolake na interface do usuário pelo nome da conta de armazenamento primária que você selecionou para seu workspace.
