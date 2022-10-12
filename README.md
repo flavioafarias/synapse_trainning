@@ -67,4 +67,16 @@ Após criar o workspace do Azure Synapse, você tem duas maneiras de abrir o Syn
 
 Fazer logon no espaço de trabalho
 
-![alt text](https://github.com/flavioafarias/synapse_trainning/images/login-workspace.png "Workspace")
+<img src="https://github.com/flavioafarias/synapse_trainning/blob/main/images/login-workspace.png" width="600" height="350"/>
+
+## Colocar dados de exemplo na conta de armazenamento primária
+
+Vamos usar um pequeno conjunto de dados de exemplo, com 100 mil linhas de dados de Táxis de NYC para muitos exemplos neste guia de introdução. Começamos colocando-o na conta de armazenamento primária que você criou para o espaço de trabalho.
+
+Baixe este arquivo no computador: https://azuresynapsestorage.blob.core.windows.net/sampledata/NYCTaxiSmall/NYCTripSmall.parquet
+No Synapse Studio, navegue até o Hub de Dados.
+Selecione Vinculado.
+Na categoria Azure Data Lake Storage Gen2, você verá um item com um nome semelhante a myworkspace (Primário – contosolake) .
+Selecione o contêiner chamado usuários (Primário) .
+Selecione Carregar e selecione o arquivo NYCTripSmall.parquet que você baixou.
+Depois de carregado, o arquivo parquet estará disponível por meio de dois URIs equivalentes:
