@@ -130,15 +130,109 @@ Procure o conteúdo dos arquivos diretamente por meio do banco de dados master. 
 
 2. Alternar de mestre para DataExplorationDB usando o comando a seguir. Você também pode usar o controle da interface do usuário para usar o banco de dados para alternar o banco de dados atual:
 
-```SQL
-
-Copiar
-USE DataExplorationDB ```
+    ```SQL
+    USE DataExplorationDB
 
 3. No 'DataExplorationDB', crie objetos de utilitário, como credenciais e fontes de dados.
 
-SQL
+    ```SQL
+        CREATE EXTERNAL DATA SOURCE ContosoLake
+        WITH (LOCATION = 'https://contosolake.dfs.core.windows.net')
 
-Copiar
-CREATE EXTERNAL DATA SOURCE ContosoLake
-WITH ( LOCATION = 'https://contosolake.dfs.core.windows.net'
+
+> Uma fonte de dados externa pode ser criada sem uma credencial. Se uma credencial não existir, a identidade do chamador será usada para acessar a fonte de dados externa.
+
+Opcionalmente, use o banco de dados 'DataExplorationDB' criado recentemente para criar um logon para um usuário no DataExplorationDB que acessará dados externos:
+
+
+    ```sql
+    CREATE LOGIN data_explorer WITH PASSWORD = 'My Very Strong Password 1234!'
+    
+    
+
+4. Depois crie um usuário de banco de dados em 'DataExplorationDB' para o logon acima e conceda a permissão ADMINISTER DATABASE BULK OPERATIONS.
+
+    ```sql
+    Copiar
+    CREATE USER data_explorer FOR LOGIN data_explorer;
+    GO
+    GRANT ADMINISTER DATABASE BULK OPERATIONS TO data_explorer;
+    GO
+
+5. Depois crie um usuário de banco de dados em 'DataExplorationDB' para o logon acima e conceda a permissão ADMINISTER DATABASE BULK OPERATIONS.
+
+    ```SQL
+    Copiar
+    SELECT
+        TOP 100 *
+    FROM
+        OPENROWSET(
+                BULK '/users/NYCTripSmall.parquet',
+                DATA_SOURCE = 'ContosoLake',
+                FORMAT='PARQUET'
+        ) AS [result]
+
+
+6. Publicar suas alterações no workspace.
+
+O banco de dados de exploração de dados é apenas um espaço reservado simples no qual você poderá armazenar os objetos de utilitário. O pool de SQL do Synapse permite que você faça muito mais e crie um data warehouse lógico, uma camada relacional criada com base nas fontes de dados do Azure.
+
+# Analisar com Data Explorer (versão prévia)
+
+### Criar um pool do Data Explorer
+
+No Synapse Studio, no painel do lado esquerdo, selecione Gerenciar>Pools do Data Explorer.
+
+Selecione Novo e insira os seguintes detalhes na guia Noções básicas:
+
+
+| Configuração        | Valor sugerido           | Descrição  |
+|:-------------: |:-------------:| :-----: |
+| Nome do pool do Data Explorer | contosodataexplorer | Este é o futuro nome do pool do Data Explorer. |
+| Carga de trabalho|Otimizado para computação|Esta carga de trabalho fornece uma CPU maior para a taxa de armazenamento SSD. |
+| Tamanho do nó | Pequeno (4 núcleos)|Defina isso com o menor tamanho para reduzir os custos deste início rápido |
+
+
+
+>Observe que há limitações específicas para os nomes que os pools do Data Explorer podem usar. Os nomes devem conter apenas letras minúsculas e números, ter entre 4 e 15 caracteres e começar com uma letra.
+
+3. Selecione Examinar + criar>Criar. O pool do Data Explorer iniciará o processo de provisionamento.
+
+## Criar um banco de dados do Data Explorer
+
+1. No Synapse Studio, no painel esquerdo, selecione Dados.
+
+2. Selecione + (Adicionar novo recurso) >Banco de dados do Data Explorer e cole as seguintes informações:
+
+    | Configuração	| Valor sugerido	| Descrição |
+    |-------------|:---------------:|-------------|
+    | Nome do pool	| contosodataexplorer	| O nome do pool do Data Explorer a ser usado |
+    | Nome	| TestDatabase	| O nome do banco de dados deve ser exclusivo dentro do cluster. |
+    | Período de retenção padrão	| 365	| O período de tempo (em dias) durante o qual há a garantia de que os dados serão mantidos disponíveis para consulta.	| O período é medido a partir do momento em que os dados são incluídos. |
+    | Período de cache padrão	| 31	| O período de tempo (em dias) durante o qual os dados consultados com frequência devem ser mantidos disponíveis no armazenamento SSD ou RAM, em vez de no armazenamento de longo prazo. |
+
+3. Selecione Criar para criar o banco de dados. A criação geralmente leva menos de um minuto.
+
+## Ingerir dados de exemplo e analisar com uma consulta simples
+
+1. No Synapse Studio, no painel do lado esquerdo, selecione Desenvolver.
+2. Em Scripts KQL, selecione + (Adicionar novo recurso) >Script KQL. No painel do lado direito, você pode nomear o script.
+3. No menu Conexão, selecione contosodataexplorer.
+4. No menu Usar banco de dados, selecione TestDatabase.
+5. Cole o comando a seguir e selecione Executar para criar uma tabela StormEvents.
+
+        ```kusto
+        .create table StormEvents 
+        (StartTime: datetime, EndTime: datetime, EpisodeId: int, 
+        EventId: int, State: string, EventType: string, InjuriesDirect: int,
+        InjuriesIndirect: int, DeathsDirect: int, DeathsIndirect: int, DamageProperty: int, 
+        DamageCrops: int, Source: string, BeginLocation: string, 
+        EndLocation: string, BeginLat: real, BeginLon: real, EndLat: real, 
+        EndLon: real, EpisodeNarrative: string, EventNarrative: string, StormSummary: dynamic)
+
+
+    > Dica
+
+    > Verifique se a tabela foi criada com êxito. No painel esquerdo, selecione Dados, selecione o menu contosodataexplorer e, em seguida, selecione Atualizar. Em contosodataexplorer, expanda Tabelas e verifique se a tabela StormEvents é exibida na lista.
+
+6. Cole o comando a seguir e selecione Executar para ingerir dados na tabela StormEvents.
