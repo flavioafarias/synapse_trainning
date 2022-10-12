@@ -55,4 +55,14 @@ Selecione Examinar + criar>Criar. Seu workspace fica pronto em alguns minutos.
 
 # Atenção
 
-> **Nem todos os recursos do pool de SQL dedicado nos workspaces do Azure Synapse se aplicam ao pool de SQL dedicado (antigo SQL DW) e vice-versa. Este artigo é um guia** > para habilitar os recursos do workspace para um pool de SQL dedicado existente (antigo SQL DW).
+> **Nem todos os recursos do pool de SQL dedicado nos workspaces do Azure Synapse se aplicam ao pool de SQL dedicado (antigo SQL DW) e vice-versa.**
+
+[Clique aqui para ver as Diferenças](https://techcommunity.microsoft.com/t5/azure-synapse-analytics-blog/what-s-the-difference-between-azure-synapse-formerly-sql-dw-and/ba-p/3597772)
+
+## Abrir o Synapse Studio
+Após criar o workspace do Azure Synapse, você tem duas maneiras de abrir o Synapse Studio:
+
+1. Abra o workspace do Azure Synapse no portal do Azure e, na seção Visão geral do workspace do Azure Synapse, selecione Abrir na caixa Abrir Synapse Studio.
+2. Acesse https://web.azuresynapse.net e entre no seu workspace.
+
+Fazer logon no espaço de trabalho
