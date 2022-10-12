@@ -73,10 +73,14 @@ Fazer logon no espaço de trabalho
 
 Vamos usar um pequeno conjunto de dados de exemplo, com 100 mil linhas de dados de Táxis de NYC para muitos exemplos neste guia de introdução. Começamos colocando-o na conta de armazenamento primária que você criou para o espaço de trabalho.
 
-Baixe este arquivo no computador: https://azuresynapsestorage.blob.core.windows.net/sampledata/NYCTaxiSmall/NYCTripSmall.parquet
-No Synapse Studio, navegue até o Hub de Dados.
-Selecione Vinculado.
-Na categoria Azure Data Lake Storage Gen2, você verá um item com um nome semelhante a myworkspace (Primário – contosolake) .
-Selecione o contêiner chamado usuários (Primário) .
-Selecione Carregar e selecione o arquivo NYCTripSmall.parquet que você baixou.
+* Baixe este arquivo no computador: <a href="https://github.com/flavioafarias/synapse_trainning/blob/main/files_support/NYCTripSmall.parquet" target="_blank" rel="noopener noreferrer">NYCTripSmall</a>.
+* No Synapse Studio, navegue até o Hub de Dados.
+* Selecione Vinculado.
+* Na categoria Azure Data Lake Storage Gen2, você verá um item com um nome semelhante a myworkspace (Primário – contosolake) .
+* Selecione o contêiner chamado usuários (Primário) .
+* Selecione Carregar e selecione o arquivo NYCTripSmall.parquet que você baixou.
+
 Depois de carregado, o arquivo parquet estará disponível por meio de dois URIs equivalentes:
+
+* https://contosolake.dfs.core.windows.net/users/NYCTripSmall.parquet
+* abfss://users@contosolake.dfs.core.windows.net/NYCTripSmall.parquet
