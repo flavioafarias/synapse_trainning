@@ -66,3 +66,5 @@ Após criar o workspace do Azure Synapse, você tem duas maneiras de abrir o Syn
 2. Acesse https://web.azuresynapse.net e entre no seu workspace.
 
 Fazer logon no espaço de trabalho
+
+![alt text](https://github.com/flavioafarias/synapse_trainning/images/login-workspace.png "Workspace")
