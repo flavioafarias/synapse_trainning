@@ -17,7 +17,7 @@ Analisar dados de Táxi de NYC com um pool de SQL sem servidor
         OPENROWSET(
             BULK 'https://contosolake.dfs.core.windows.net/users/NYCTripSmall.parquet',
             FORMAT='PARQUET'
-        ) AS [result]```
+        ) AS [result]
 4. Clique em Executar.
 
 A exploração de dados é apenas um cenário simplificado no qual você pode entender as características básicas dos seus dados.
