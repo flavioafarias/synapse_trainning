@@ -46,9 +46,9 @@ Selecione Novo e insira os seguintes detalhes na guia Noções básicas:
     .create table StormEvents (StartTime: datetime, EndTime: datetime, EpisodeId: int, EventId: int, State: string, EventType: string, InjuriesDirect: int, InjuriesIndirect: int, DeathsDirect: int, DeathsIndirect: int, DamageProperty: int, DamageCrops: int, Source: string, BeginLocation: string, EndLocation: string, BeginLat: real, BeginLon: real, EndLat: real, EndLon: real, EpisodeNarrative: string, EventNarrative: string, StormSummary: dynamic)
 
 
-    > Dica
+ > Dica
 
-    > Verifique se a tabela foi criada com êxito. No painel esquerdo, selecione Dados, selecione o menu contosodataexplorer e, em seguida, selecione Atualizar. Em contosodataexplorer, expanda Tabelas e verifique se a tabela StormEvents é exibida na lista.
+ > Verifique se a tabela foi criada com êxito. No painel esquerdo, selecione Dados, selecione o menu contosodataexplorer e, em seguida, selecione Atualizar. Em contosodataexplorer, expanda Tabelas e verifique se a tabela StormEvents é exibida na lista.
 
 6. Cole o comando a seguir e selecione Executar para ingerir dados na tabela StormEvents.
 
